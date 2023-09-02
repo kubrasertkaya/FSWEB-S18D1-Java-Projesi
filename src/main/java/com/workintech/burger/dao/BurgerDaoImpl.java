@@ -1,5 +1,6 @@
 package com.workintech.burger.dao;
 
+import com.workintech.burger.entity.BreadType;
 import com.workintech.burger.entity.Burger;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
@@ -45,22 +46,30 @@ public class BurgerDaoImpl implements BurgerDao {
     }
 
     @Override
-    public List<Burger> findByBreadType(String breadType) {
-        return null;
+    public List<Burger> findByBreadType(BreadType breadType) {
+        TypedQuery<Burger> query=entityManager.
+                createQuery("SELECT b FROM Burger b WHERE b.breadType=:type ORDER BY name asc", Burger.class);
+        query.setParameter("type",breadType.name());
+        return query.getResultList();
     }
 
     @Override
-    public List<Burger> findByContent(String contents) {
-        return null;
+    public List<Burger> findByContent(String content) {
+        TypedQuery<Burger> query=entityManager.
+                createQuery("SELECT b FROM Burger b WHERE b.contents ilike '%:content%'", Burger.class);
+        query.setParameter("content",content);
+        return query.getResultList();
     }
 
     @Override
     public Burger update(Burger burger) {
-        return null;
+        return entityManager.merge(burger);
     }
 
     @Override
     public Burger delete(Burger burger) {
-        return null;
+        Burger foundBurger=findById(burger.getId());
+        entityManager.remove(burger);
+        return foundBurger;
     }
 }
