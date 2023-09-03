@@ -26,6 +26,7 @@ public class Burger {
 
     @Enumerated(EnumType.STRING)
     private BreadType breadType;
+
     @Column(name = "contents")
     private List<String> contents;
 }

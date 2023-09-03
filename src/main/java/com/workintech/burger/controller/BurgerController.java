@@ -2,6 +2,7 @@ package com.workintech.burger.controller;
 
 import com.workintech.burger.dao.BurgerDao;
 import com.workintech.burger.entity.Burger;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,7 @@ public class BurgerController {
         this.burgerDao = burgerDao;
     }
 
+    @Transactional
     @PostMapping("/")
     public Burger save (@RequestBody Burger burger){
         return burgerDao.save(burger);
@@ -25,6 +27,11 @@ public class BurgerController {
     @GetMapping("/")
     public List<Burger> get(){
         return burgerDao.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public Burger find(@PathVariable int id){
+        return  burgerDao.findById(id);
     }
 
 
