@@ -10,9 +10,9 @@ public interface BurgerDao {
     List<Burger> findAll();
     Burger findById(int id);
     List<Burger> findByPrice(double price);
-    List<Burger> findByBreadType(BreadType breadType);
-    List<Burger> findByContent(String content);
+    List<Burger> findByBreadType(String breadType);
+    List<Burger> findByContent(String contents);
     Burger update(Burger burger);
-    Burger delete(Burger burger);
+    void delete(Burger burger);
 
 }

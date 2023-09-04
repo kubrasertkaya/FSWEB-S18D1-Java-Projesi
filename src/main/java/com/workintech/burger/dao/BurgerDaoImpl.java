@@ -46,18 +46,18 @@ public class BurgerDaoImpl implements BurgerDao {
     }
 
     @Override
-    public List<Burger> findByBreadType(BreadType breadType) {
+    public List<Burger> findByBreadType(String breadType) {
         TypedQuery<Burger> query=entityManager.
                 createQuery("SELECT b FROM Burger b WHERE b.breadType=:type ORDER BY name asc", Burger.class);
-        query.setParameter("type",breadType.name());
+        query.setParameter("type",breadType);
         return query.getResultList();
     }
 
     @Override
-    public List<Burger> findByContent(String content) {
+    public List<Burger> findByContent(String contents) {
         TypedQuery<Burger> query=entityManager.
                 createQuery("SELECT b FROM Burger b WHERE b.contents ilike '%:content%'", Burger.class);
-        query.setParameter("content",content);
+        query.setParameter("content",contents);
         return query.getResultList();
     }
 
@@ -67,9 +67,7 @@ public class BurgerDaoImpl implements BurgerDao {
     }
 
     @Override
-    public Burger delete(Burger burger) {
-        Burger foundBurger=findById(burger.getId());
+    public void  delete(Burger burger) {
         entityManager.remove(burger);
-        return foundBurger;
     }
 }
